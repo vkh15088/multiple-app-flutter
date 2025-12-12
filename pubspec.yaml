@@ -31,9 +31,47 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  # State Management
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.7
+  
+  # Firebase
+  firebase_core: ^4.2.1
+  firebase_auth: ^6.1.2
+  firebase_messaging: ^16.0.4
+  firebase_crashlytics: ^5.0.5
+  firebase_performance: ^0.11.1+2
+  firebase_remote_config: ^6.1.2
+  firebase_analytics: ^12.0.4
+  
+  # Airbridge
+  airbridge_flutter_sdk: ^4.8.0
+  
+  # Dependency Injection
+  get_it: ^9.2.0
+  injectable: ^2.7.1+2
+  
+  # Networking
+  dio: ^5.9.0
+  retrofit: ^4.9.1
+  json_annotation: ^4.9.0
+  
+  # Local Storage
+  shared_preferences: ^2.5.3
+  flutter_secure_storage: ^9.2.4
+  
+  # Deep Links
+  app_links: ^7.0.0
+  
+  # Background Services
+  workmanager: ^0.9.0+3
+  
+  # UI/UX
   cupertino_icons: ^1.0.8
+  
+  # Utilities
+  logger: ^2.6.2
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +83,12 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
+
+  # Code Generation
+  build_runner: ^2.10.4
+  injectable_generator: ^2.11.1
+  retrofit_generator: ^10.2.0
+  json_serializable: ^6.11.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
