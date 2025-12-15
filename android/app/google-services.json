@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "703302883700",
+    "project_id": "hung-multiple-app",
+    "storage_bucket": "hung-multiple-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703302883700:android:c2568ea4c9e12e34e17421",
+        "android_client_info": {
+          "package_name": "com.example.hung_multiple_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE0i5R4HSbjFmKgNNrklZeM2oOrVXo1Tg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

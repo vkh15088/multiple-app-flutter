@@ -1,0 +1,30 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "hung-multiple-app",
+                    "appId": "1:703302883700:android:c2568ea4c9e12e34e17421",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "ios": {
+                "default": {
+                    "projectId": "hung-multiple-app",
+                    "appId": "1:703302883700:ios:67f3adc3eb1ee03ce17421",
+                    "uploadDebugSymbols": true,
+                    "fileOutput": "ios/Runner/GoogleService-Info.plist"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "hung-multiple-app",
+                    "configurations": {
+                        "android": "1:703302883700:android:c2568ea4c9e12e34e17421",
+                        "ios": "1:703302883700:ios:67f3adc3eb1ee03ce17421"
+                    }
+                }
+            }
+        }
+    }
+}
