@@ -14,6 +14,7 @@ import 'package:hung_multiple_app/features/auth/presentation/bloc/auth_bloc.dart
 import 'package:workmanager/workmanager.dart';
 
 import 'core/remote_config/bloc/remote_config_bloc.dart';
+import 'core/services/timezone_service.dart';
 
 // Background message handler (must be top-level function)
 @pragma('vm:entry-point')
@@ -68,6 +69,7 @@ void main() async {
   await configureDependencies();
 
   // Initialize services
+  await getIt<TimezoneService>().initialize();
   await getIt<NotificationService>().initialize();
   await getIt<RemoteConfigService>().initialize();
   // await getIt<DeepLinkService>().initialize();

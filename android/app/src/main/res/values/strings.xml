@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hung Multiple App</string>
+    <string name="deep_link_scheme">yourapp</string>
+    <string name="deep_link_host">yourapp.com</string>
+</resources>

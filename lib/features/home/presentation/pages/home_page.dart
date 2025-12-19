@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/di/injection.dart';
 import '../../../../core/navigation/app_routes.dart';
 import '../../../../core/remote_config/bloc/remote_config_bloc.dart';
+import '../../../../core/services/local_notification_service.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,6 +13,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localNotificationService = getIt<LocalNotificationService>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
@@ -78,63 +82,127 @@ class HomePage extends StatelessWidget {
                               const SizedBox(height: 8),
                               Text(authState.user.email, style: Theme.of(context).textTheme.bodyLarge),
                               const SizedBox(height: 32),
-                              const Card(
-                                margin: EdgeInsets.all(16),
+                              Card(
+                                margin: const EdgeInsets.all(16),
                                 child: Padding(
-                                  padding: EdgeInsets.all(16),
+                                  padding: const EdgeInsets.all(16),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
+                                      const Text(
                                         'Firebase Services Active:',
                                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                                       ),
-                                      SizedBox(height: 12),
-                                      Row(
+                                      const SizedBox(height: 12),
+                                      const Row(
                                         children: [
                                           Icon(Icons.check, color: Colors.green, size: 20),
                                           SizedBox(width: 8),
                                           Text('Authentication'),
                                         ],
                                       ),
-                                      SizedBox(height: 8),
-                                      Row(
+                                      const SizedBox(height: 8),
+                                      const Row(
                                         children: [
                                           Icon(Icons.check, color: Colors.green, size: 20),
                                           SizedBox(width: 8),
                                           Text('Cloud Messaging'),
                                         ],
                                       ),
-                                      SizedBox(height: 8),
-                                      Row(
+                                      const SizedBox(height: 8),
+                                      const Row(
                                         children: [
                                           Icon(Icons.check, color: Colors.green, size: 20),
                                           SizedBox(width: 8),
                                           Text('Crashlytics'),
                                         ],
                                       ),
-                                      SizedBox(height: 8),
-                                      Row(
+                                      const SizedBox(height: 8),
+                                      const Row(
                                         children: [
                                           Icon(Icons.check, color: Colors.green, size: 20),
                                           SizedBox(width: 8),
                                           Text('Performance Monitoring'),
                                         ],
                                       ),
-                                      SizedBox(height: 8),
-                                      Row(
+                                      const SizedBox(height: 8),
+                                      const Row(
                                         children: [
                                           Icon(Icons.check, color: Colors.green, size: 20),
                                           SizedBox(width: 8),
                                           Text('Remote Config'),
                                         ],
                                       ),
-                                      SizedBox(height: 8),
-                                      Row(
+                                      const SizedBox(height: 8),
+                                      const Row(
+                                        children: [
+                                          Icon(Icons.check, color: Colors.green, size: 20),
+                                          SizedBox(width: 8),
+                                          Text('Local Notifications'),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 8),
+                                      const Row(
                                         children: [
                                           Icon(Icons.check, color: Colors.green, size: 20),
                                           SizedBox(width: 8),
                                           Text('Airbridge SDK'),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 16),
+                                      const Divider(),
+                                      const SizedBox(height: 8),
+                                      const Text(
+                                        'Test Local Notifications:',
+                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Wrap(
+                                        spacing: 8,
+                                        runSpacing: 8,
+                                        children: [
+                                          ElevatedButton.icon(
+                                            onPressed: () => localNotificationService.showWelcomeNotification(),
+                                            icon: const Icon(Icons.waving_hand, size: 16),
+                                            label: const Text('Welcome'),
+                                            style: ElevatedButton.styleFrom(
+                                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                            ),
+                                          ),
+                                          ElevatedButton.icon(
+                                            onPressed: () => localNotificationService.showPromotionNotification(),
+                                            icon: const Icon(Icons.local_offer, size: 16),
+                                            label: const Text('Promotion'),
+                                            style: ElevatedButton.styleFrom(
+                                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                            ),
+                                          ),
+                                          ElevatedButton.icon(
+                                            onPressed: () =>
+                                                localNotificationService.showFeatureNotification('Dark Mode'),
+                                            icon: const Icon(Icons.lightbulb, size: 16),
+                                            label: const Text('Feature'),
+                                            style: ElevatedButton.styleFrom(
+                                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                            ),
+                                          ),
+                                          ElevatedButton.icon(
+                                            onPressed: () {
+                                              final scheduledDate = DateTime.now().add(const Duration(seconds: 5));
+                                              localNotificationService.scheduleReminderNotification(
+                                                message: 'This is your scheduled reminder!',
+                                                scheduledDate: scheduledDate,
+                                              );
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                const SnackBar(content: Text('Notification scheduled for 5 seconds')),
+                                              );
+                                            },
+                                            icon: const Icon(Icons.schedule, size: 16),
+                                            label: const Text('Schedule'),
+                                            style: ElevatedButton.styleFrom(
+                                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ],

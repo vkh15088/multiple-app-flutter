@@ -3,7 +3,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,16 +19,15 @@ import '../../features/auth/presentation/bloc/auth_bloc.dart';
 // import '../services/airbridge_service.dart';
 // import '../services/deep_link_service.dart';
 import '../remote_config/bloc/remote_config_bloc.dart';
+import '../services/local_notification_service.dart';
 import '../services/notification_service.dart';
 import '../services/remote_config_service.dart';
+import '../services/timezone_service.dart';
 
 final getIt = GetIt.instance;
 
 @InjectableInit()
 Future<void> configureDependencies() async {
-  // Register Navigator Key
-  getIt.registerSingleton<GlobalKey<NavigatorState>>(GlobalKey<NavigatorState>());
-
   // Register SharedPreferences
   final prefs = await SharedPreferences.getInstance();
   getIt.registerSingleton<SharedPreferences>(prefs);
@@ -40,8 +39,13 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton<FirebasePerformance>(() => FirebasePerformance.instance);
   getIt.registerLazySingleton<FirebaseRemoteConfig>(() => FirebaseRemoteConfig.instance);
 
+  // Register Flutter Local Notifications
+  getIt.registerLazySingleton<FlutterLocalNotificationsPlugin>(() => FlutterLocalNotificationsPlugin());
+
   // Register Services
+  getIt.registerLazySingleton<TimezoneService>(() => TimezoneService());
   getIt.registerLazySingleton<NotificationService>(() => NotificationService(getIt(), getIt()));
+  getIt.registerLazySingleton<LocalNotificationService>(() => LocalNotificationService(getIt(), getIt()));
   getIt.registerLazySingleton<RemoteConfigService>(() => RemoteConfigService(getIt()));
   // getIt.registerLazySingleton<DeepLinkService>(
   //   () => DeepLinkService(),

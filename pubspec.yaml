@@ -46,6 +46,13 @@ dependencies:
   firebase_performance: ^0.11.1+2
   firebase_remote_config: ^6.1.2
   firebase_analytics: ^12.0.4
+
+  # Local Notifications
+  flutter_local_notifications: ^19.5.0
+
+  # Timezone
+  timezone: ^0.10.1
+  flutter_timezone: ^5.0.1
   
   # Airbridge
   airbridge_flutter_sdk: ^4.8.0
@@ -64,7 +71,7 @@ dependencies:
   flutter_secure_storage: ^9.2.4
   
   # Deep Links
-  app_links: ^7.0.0
+  # app_links: ^7.0.0
   
   # Background Services
   workmanager: ^0.9.0+3
