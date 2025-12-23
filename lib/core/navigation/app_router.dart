@@ -8,6 +8,7 @@ import '../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/signup_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/product/presentation/pages/product_page.dart';
 import '../di/injection.dart';
 import 'app_routes.dart';
 
@@ -54,11 +55,10 @@ class AppRouter {
         path: AppRoutes.product,
         name: AppRoutes.productName,
         builder: (context, state) {
-          final productId = state.pathParameters['id'] ?? '';
-          return Scaffold(
-            appBar: AppBar(title: const Text('Product')),
-            body: Center(child: Text('Product ID: $productId')),
-          );
+          final productId = state.pathParameters['id'] ?? 'unknown';
+          final extra = state.extra as Map<String, dynamic>?;
+
+          return ProductPage(productId: productId, notificationData: extra);
         },
       ),
 

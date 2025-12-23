@@ -1,15 +1,23 @@
+import 'dart:convert';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../constants/notification_constants.dart';
+import 'local_notification_service.dart';
+import 'notification_navigation_helper.dart';
+
 class NotificationService {
   final FirebaseMessaging _messaging;
   final SharedPreferences _prefs;
+  final LocalNotificationService _localNotificationService;
 
   static const String _fcmTokenKey = 'fcm_token';
+  static int _notificationIdCounter = 100; // Start from 100 for FCM notifications
 
-  NotificationService(this._messaging, this._prefs);
+  NotificationService(this._messaging, this._prefs, this._localNotificationService);
 
   Future<void> initialize() async {
     // Request permission for iOS
@@ -35,10 +43,13 @@ class NotificationService {
     _messaging.onTokenRefresh.listen(_saveFCMToken);
 
     // Setup message handlers
-    _setupMessageHandlers();
+    await _setupMessageHandlers();
+
+    // Subscribe to "all" topic for broadcast messages
+    await subscribeToTopic(NotificationConstants.topicAll);
   }
 
-  void _setupMessageHandlers() {
+  Future<void> _setupMessageHandlers() async {
     // Foreground messages
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       debugPrint('Got a message whilst in the foreground!');
@@ -74,19 +85,63 @@ class NotificationService {
     return _prefs.getString(_fcmTokenKey);
   }
 
-  void _showLocalNotification(RemoteMessage message) {
-    // TODO: Implement local notification display
-    // You can use flutter_local_notifications package
-    debugPrint('Showing notification: ${message.notification?.title}');
+  void _showLocalNotification(RemoteMessage message) async {
+    try {
+      final notification = message.notification;
+      final data = message.data;
+
+      if (notification == null) {
+        debugPrint('No notification payload to display');
+        return;
+      }
+
+      // Generate unique notification ID
+      final notificationId = _notificationIdCounter++;
+
+      // Prepare payload for navigation
+      String payload;
+
+      // If there's data, create JSON payload for better navigation
+      if (data.isNotEmpty) {
+        final payloadData = {
+          NotificationConstants.keyType: data[NotificationConstants.keyType] ?? NotificationConstants.typePromotion,
+          NotificationConstants.keyId: data[NotificationConstants.keyId] ?? data['product_id'] ?? '',
+          NotificationConstants.keyTitle: notification.title ?? '',
+          NotificationConstants.keyBody: notification.body ?? '',
+          NotificationConstants.keyProductName: data[NotificationConstants.keyProductName] ?? '',
+          NotificationConstants.keyProductPrice: data[NotificationConstants.keyProductPrice] ?? '',
+          NotificationConstants.keySource: NotificationConstants.sourcePush,
+        };
+        payload = jsonEncode(payloadData);
+      } else {
+        // Simple payload if no data
+        payload = NotificationConstants.typePromotion;
+      }
+
+      // Show local notification
+      await _localNotificationService.showNotification(
+        id: notificationId,
+        title: notification.title ?? 'Notification',
+        body: notification.body ?? 'You have a new message',
+        payload: payload,
+      );
+
+      debugPrint('Local notification shown: ${notification.title}');
+    } catch (e) {
+      debugPrint('Error showing local notification: $e');
+    }
   }
 
   void _handleNotificationTap(RemoteMessage message) {
-    // Handle notification tap and navigate accordingly
     final data = message.data;
-    debugPrint('Notification tapped with data: $data');
+    debugPrint('FCM notification tapped with data: $data');
 
-    // TODO: Implement navigation based on notification data
-    // Example: Navigate to specific screen based on data['route']
+    // Use centralized navigation helper
+    NotificationNavigationHelper.handleFCMData(
+      data,
+      title: message.notification?.title,
+      body: message.notification?.body,
+    );
   }
 
   Future<void> subscribeToTopic(String topic) async {

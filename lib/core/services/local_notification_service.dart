@@ -3,6 +3,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import 'notification_navigation_helper.dart';
 import 'timezone_service.dart';
 
 class LocalNotificationService {
@@ -47,6 +48,8 @@ class LocalNotificationService {
       // Request permissions for iOS
       if (defaultTargetPlatform == TargetPlatform.iOS) {
         await _requestIOSPermissions();
+      } else if (defaultTargetPlatform == TargetPlatform.android) {
+        // await _requestAndroidPermissions();
       }
 
       // Create notification channels for Android
@@ -62,6 +65,12 @@ class LocalNotificationService {
     await _notificationsPlugin
         .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(alert: true, badge: true, sound: true);
+  }
+
+  Future<void> _requestAndroidPermissions() async {
+    _notificationsPlugin
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
   }
 
   Future<void> _createNotificationChannels() async {
@@ -99,13 +108,10 @@ class LocalNotificationService {
   // Callback when notification is tapped
   void _onNotificationTapped(NotificationResponse response) {
     final payload = response.payload;
-    debugPrint('Notification tapped with payload: $payload');
+    debugPrint('Local notification tapped with payload: $payload');
 
-    // TODO: Handle notification tap navigation
-    // Example: Navigate to specific screen based on payload
-    // if (payload == 'profile') {
-    //   navigatorKey.currentState?.pushNamed('/profile');
-    // }
+    // Use centralized navigation helper
+    NotificationNavigationHelper.handlePayload(payload);
   }
 
   /// Show a simple notification

@@ -44,8 +44,8 @@ Future<void> configureDependencies() async {
 
   // Register Services
   getIt.registerLazySingleton<TimezoneService>(() => TimezoneService());
-  getIt.registerLazySingleton<NotificationService>(() => NotificationService(getIt(), getIt()));
   getIt.registerLazySingleton<LocalNotificationService>(() => LocalNotificationService(getIt(), getIt()));
+  getIt.registerLazySingleton<NotificationService>(() => NotificationService(getIt(), getIt(), getIt()));
   getIt.registerLazySingleton<RemoteConfigService>(() => RemoteConfigService(getIt()));
   // getIt.registerLazySingleton<DeepLinkService>(
   //   () => DeepLinkService(),
