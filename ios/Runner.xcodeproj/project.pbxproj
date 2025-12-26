@@ -202,8 +202,6 @@
 				97C146EC1CF9000F007C117D /* Resources */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
-				3D608FD7B459ADD55BAD8141 /* [Airbridge] Copy airbridge.json */,
-				CD0458A7267D136A15557BAA /* [Airbridge] Create LibraryInfo.json */,
 				728D3509795E7FA5EA913CF5 /* [CP] Embed Pods Frameworks */,
 				4A2978C5BC06FC2508BA8586 /* [CP] Copy Pods Resources */,
 				8332BC22D8D64386E905E6C9 /* FlutterFire: "flutterfire upload-crashlytics-symbols" */,
@@ -317,24 +315,6 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
 		};
-		3D608FD7B459ADD55BAD8141 /* [Airbridge] Copy airbridge.json */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Airbridge] Copy airbridge.json";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "ENVIRONMENT=$(echo \"${AIRBRIDGE_ENVIRONMENT:-}\" | tr '[:upper:]' '[:lower:]')\nENVIRONMENT=$(echo \"$ENVIRONMENT\" | grep -Eq '^[A-Za-z0-9_-]*$' && echo \"$ENVIRONMENT\" || echo \"\")\nFILENAME=\"${SRCROOT}/../airbridge.json\"\n\nCANDIDATE=\"${SRCROOT}/../airbridge.${ENVIRONMENT}.json\"\nif [ -r \"$CANDIDATE\" ]; then\n    FILENAME=\"$CANDIDATE\"\nfi\n\nif [ -r \"$FILENAME\" ]; then\n    cp \"$FILENAME\" \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/airbridge.json\"\nfi";
-		};
 		4A2978C5BC06FC2508BA8586 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -343,9 +323,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -382,9 +366,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -423,24 +411,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
-		};
-		CD0458A7267D136A15557BAA /* [Airbridge] Create LibraryInfo.json */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "[Airbridge] Create LibraryInfo.json";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo '{\"wrapperName\": \"airbridge-flutter-sdk\", \"wrapperVersion\": \"4.8.0\"}' > \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LibraryInfo.json\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

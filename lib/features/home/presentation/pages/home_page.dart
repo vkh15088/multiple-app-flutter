@@ -142,13 +142,6 @@ class HomePage extends StatelessWidget {
                                         ],
                                       ),
                                       const SizedBox(height: 8),
-                                      const Row(
-                                        children: [
-                                          Icon(Icons.check, color: Colors.green, size: 20),
-                                          SizedBox(width: 8),
-                                          Text('Airbridge SDK'),
-                                        ],
-                                      ),
                                       const SizedBox(height: 16),
                                       const Divider(),
                                       const SizedBox(height: 8),

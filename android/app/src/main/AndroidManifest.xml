@@ -28,6 +28,43 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+            <!-- Disable default Flutter deep linking -->
+            <meta-data android:name="flutter_deeplinking_enabled" android:value="false" />
+
+            <!-- Deep Links - Universal Links (App Links) -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="https"
+                    android:host="hung-multiple-app.web.app"
+                    android:pathPrefix="/" />
+                <data
+                    android:scheme="https"
+                    android:host="hung-multiple-app.firebaseapp.com"
+                    android:pathPrefix="/" />
+                <data
+                    android:scheme="https"
+                    android:host="hungd3ptr2i.web.app"
+                    android:pathPrefix="/" />
+                <data
+                    android:scheme="https"
+                    android:host="hungd3ptr2i.firebaseapp.com"
+                    android:pathPrefix="/" />
+            </intent-filter>
+            <!-- Deep Links - Universal Links (App Links) -->
+
+            <!-- Deep Links - Custom Scheme -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="hungapp" />
+            </intent-filter>
+            <!-- Deep Links - Custom Scheme -->
+
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

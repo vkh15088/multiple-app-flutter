@@ -16,9 +16,8 @@ import '../../features/auth/domain/usecases/login_usecase.dart';
 import '../../features/auth/domain/usecases/logout_usecase.dart';
 import '../../features/auth/domain/usecases/signup_usecase.dart';
 import '../../features/auth/presentation/bloc/auth_bloc.dart';
-// import '../services/airbridge_service.dart';
-// import '../services/deep_link_service.dart';
 import '../remote_config/bloc/remote_config_bloc.dart';
+import '../services/deep_link_service.dart';
 import '../services/local_notification_service.dart';
 import '../services/notification_service.dart';
 import '../services/remote_config_service.dart';
@@ -47,12 +46,7 @@ Future<void> configureDependencies() async {
   getIt.registerLazySingleton<LocalNotificationService>(() => LocalNotificationService(getIt(), getIt()));
   getIt.registerLazySingleton<NotificationService>(() => NotificationService(getIt(), getIt(), getIt()));
   getIt.registerLazySingleton<RemoteConfigService>(() => RemoteConfigService(getIt()));
-  // getIt.registerLazySingleton<DeepLinkService>(
-  //   () => DeepLinkService(),
-  // );
-  // getIt.registerLazySingleton<AirbridgeService>(
-  //   () => AirbridgeService(),
-  // );
+  getIt.registerLazySingleton<DeepLinkService>(() => DeepLinkService());
 
   // Register Remote Config BLoC
   getIt.registerFactory(() => RemoteConfigBloc(remoteConfigService: getIt()));
