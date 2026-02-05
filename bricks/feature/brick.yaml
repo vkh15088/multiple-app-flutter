@@ -1,0 +1,9 @@
+name: feature
+description: Generate a new feature following Clean Architecture with BLoC pattern
+version: 0.1.0
+
+vars:
+  feature_name:
+    type: string
+    description: The name of the feature (e.g., product, profile)
+    prompt: What is the feature name?
